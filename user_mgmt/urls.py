@@ -1,6 +1,5 @@
 from django.conf.urls import url
 
-from packagemanager import views
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 from user_mgmt.views import *
 

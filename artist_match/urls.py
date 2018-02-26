@@ -1,13 +1,12 @@
 from django.conf.urls import url
 
-from packagemanager import views
+from artist_match import views
 
 urlpatterns = [
-    url(r'^packages/$', views.PackagesListView.as_view()),
-    url(r'^package_pickup/$', views.PackagePickup.as_view()),
-    url(r'^check_barcode/$', views.CheckBarcode.as_view()),
-    url(r'^apartments/$', views.ApartmentsListView.as_view()),
-    url(r'^home_view/$', views.PackagesByFloor.as_view()),
-    url(r'^packages/(?P<apartment_key>[0-9]+)/$', views.PackagesListView.as_view()),
-    url(r'^apartments/(?P<apartment_key>[0-9]+)/$', views.ApartmentResidentsView.as_view()),
+    url(r'^create_artist/$', views.CreateArtist.as_view()),
+    url(r'^load_artists/$', views.ArtistListView.as_view()),
+    # url(r'^swipe/$', views.Swipe.as_view()),
+    # url(r'^view_matches/$', views.ApartmentsListView.as_view()),
+    # url(r'^match/(?P<match_id>[0-9]+)/$', views.PackagesListView.as_view()),
+    # url(r'^messages/(?P<message_id>[0-9]+)/$', views.PackagesListView.as_view()),
 ]

@@ -5,32 +5,43 @@ from django.db import models
 
 # Create your models here.
 
-class Apartment(models.Model):
-    number = models.CharField(max_length=20, primary_key=True)
+class ArtistProfile(models.Model):
+    name = models.CharField(max_length=150)
+    artist_type = models.CharField(max_length=150, default='musician')
+    genre = models.CharField(max_length=150, default='')
+    city = models.CharField(max_length=150)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    soundcloud_id = models.CharField(max_length=25, default='')
 
         # Returns the string representation of the model.
     def __unicode__(self):              # __unicode__ on Python 2
-        return str(self.number)
+        return str(self.name)
 
-class Resident(models.Model):
-    name = models.CharField(max_length=100)
-    apartment_number = models.ForeignKey(Apartment, related_name='residents')
-    phone_number = models.CharField(max_length=20)
+class Like(models.Model):
+    artist_1 = models.ForeignKey(ArtistProfile, related_name='likes')
+    artist_2 = models.ForeignKey(ArtistProfile, related_name='liked_you')
+    swiped_on = models.DateTimeField(auto_now_add=True)
+    liked = models.BooleanField(default=False)
+    matched = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return unicode(self.name)
-
-    def __str__(self):
-        return unicode(self.name)
+        # Returns the string representation of the model.
+    def __unicode__(self):              # __unicode__ on Python 2
+        return str(self.artist_1) + '-' + str(self.liked_artist)
 
 
+class Message(models.Model):
+    match = models.ForeignKey(Like, related_name='messages')
+    sender = models.ForeignKey(ArtistProfile, related_name='sent_messages')
+    receiver = models.ForeignKey(ArtistProfile, related_name='received_messages')
+    message_text = models.TextField()
+    sent_on = models.DateTimeField(auto_now_add=True)
+    seen = models.BooleanField(default=False)
 
-class Package(models.Model):
-    date_received = models.DateTimeField(auto_now_add=True)
-    recipient = models.ForeignKey(Resident, related_name='packages', on_delete=models.CASCADE)
-    apartment_no = models.ForeignKey(Apartment, related_name='packages', on_delete=models.CASCADE)
-    package_type = models.CharField(max_length=50)
-    status = models.CharField(max_length=50, default='pending')
+
+        # Returns the string representation of the model.
+    def __unicode__(self):              # __unicode__ on Python 2
+        return str(self.sender) + '-' + str(self.receiver)
 
 
 

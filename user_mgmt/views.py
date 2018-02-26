@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import status
-from .serializers import UserReadSerializer, JustUserSerializer
+from .serializers import UserProfileSerializer, JustUserSerializer
 from .models import UserProfile, User
 
 # Create your views here.
@@ -25,7 +25,7 @@ class Username(APIView):
         uu = User.objects.get(username=current_user)
 
         rp = UserProfile.objects.get(user=uu.id)
-        rs = UserReadSerializer(rp)
+        rs = UserProfileSerializer(rp)
 
         data = {
             'resident': rs.data

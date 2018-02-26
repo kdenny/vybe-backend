@@ -1,13 +1,12 @@
 from rest_framework import serializers
 
-from .models import ResidentProfile, User
+from .models import UserProfile, User
 
-class UserReadSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ResidentProfile
+        model = UserProfile
 
-        fields = ('user', 'instagram', 'soundcloud')
-        depth = 1
+        fields = ('user', 'type', 'instagram', 'soundcloud')
 
 class JustUserSerializer(serializers.ModelSerializer):
     class Meta:
